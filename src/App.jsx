@@ -6,8 +6,6 @@ import AppRoutes from '@/AppRoutes.jsx';
 
 
 function App() {
-  const theme = createTheme({});
-
   return (
     <MantineProvider theme={{
       fontFamily: 'Roboto-Regular',

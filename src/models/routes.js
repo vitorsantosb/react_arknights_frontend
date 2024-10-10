@@ -1,10 +1,11 @@
 export const userRoutes = {
   HOMEPAGE: "/",
+  CHAT: "/chat",
+  CHAT_ROOM: "/chatroom",
+  FORUM: "/forum",
+  NEWS_UPDATES: "/updates",
   RESET_PASSWORD: "/reset-password",
   DASHBOARD: "/dashboard",
-  REGISTER: "/dashboard/user/register",
   PROFILE: "/profile",
-  BOARD: "/dashboard/board",
-  FINANCES: "/dashboard/finances",
   NOT_FOUND: "*",
 }

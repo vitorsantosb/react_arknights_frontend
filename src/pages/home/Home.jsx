@@ -11,7 +11,7 @@ function Home() {
       style={{
         overflow: "hidden",
         position: "relative",
-        background: "linear-gradient(90deg, #303644 0%, #2a2f3d 100%)",
+        background: "#303644",
       }}
     >
       <Box

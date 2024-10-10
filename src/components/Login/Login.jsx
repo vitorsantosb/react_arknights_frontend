@@ -1,14 +1,16 @@
-import {Flex, PasswordInput, TextInput, Text, Button, Group} from '@mantine/core';
-import React from 'react';
+import { Flex, PasswordInput, TextInput, Text, Button, Group, LoadingOverlay } from '@mantine/core';
+import React, {useState} from 'react';
 import {useFormik} from 'formik';
 import loginValidationSchema from '@/components/Login/schemas/login_form.schema.js';
 import {userRoutes} from '@/models/routes.js';
 import {useNavigate} from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {Userlogin} from '@/services/routes/user/user.routes.js';
 
 function Login() {
   const navigate = useNavigate();
-
+  const [loadingLogin, setLoadingLogin] = useState(false);
+  
   const loginForm = useFormik({
     initialValues: {
       email: '',
@@ -17,10 +19,9 @@ function Login() {
     validationSchema: loginValidationSchema,
     validateOnChange: false,
     onSubmit: async (values) => {
-      //put query route here!
-      //const response = await ValidateLoginUser(values);
-      console.log(values);
-      navigate(userRoutes.DASHBOARD);
+      setLoadingLogin(true);
+      const response = await Userlogin(values);
+      console.log(response)
       if (response.statusCode === 200) {
         await Swal.fire({
             icon: 'success',
@@ -43,8 +44,10 @@ function Login() {
             timer: 1500
           }
         )
-        navigate(userRoutes.DASHBOARD)
-      } else {
+        navigate(userRoutes.CHAT)
+      } else if (response.statusCode === 204 || response.statusCode === 404) {
+        console.log('joined here')
+        setLoadingLogin(false);
         await Swal.fire({
             icon: 'error',
             title: 'Email ou senha inválidos',
@@ -71,6 +74,11 @@ function Login() {
 
   return (
     <Flex direction={'column'} gap={'0.5rem'}>
+      <LoadingOverlay
+        overlayProps={{blur: 2}}
+        loaderProps={{ color: 'pink', type: 'bars' }}
+        visible={loadingLogin}>
+      </LoadingOverlay>
       <Group align={"center"} p={'1rem'} justify={"center"}>
         <Text
           c={"white"}
