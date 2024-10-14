@@ -46,7 +46,6 @@ function Login() {
         )
         navigate(userRoutes.CHAT)
       } else if (response.statusCode === 204 || response.statusCode === 404) {
-        console.log('joined here')
         setLoadingLogin(false);
         await Swal.fire({
             icon: 'error',

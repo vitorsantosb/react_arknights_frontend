@@ -1,10 +1,12 @@
-import { Container } from '@mantine/core';
+import { Box, Center, Container, Flex, Text } from '@mantine/core';
 
 function Forum() {
   return (
-    <div>
-      forum
-    </div>
+    <Center>
+      <Flex direction={'column'} p={'5rem'} bg="white" w={'100%'} h={'80%'}>
+        <Text>Forum</Text>
+      </Flex>
+    </Center>
   );
 }
 

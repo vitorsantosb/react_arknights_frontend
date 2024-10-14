@@ -23,10 +23,11 @@ export const LayoutProvider = ({ children }) => {
   });
   
   const { pathname } = useLocation();
-  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure(false);
+  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
   const [active, setActive] = useState(-1);
   const [activeChild, setActiveChild] = useState(findActive(activeMenu, pathname));
+  
   const currentUser = {
     id: '654gsdfg55-sdfgsdfg54-aflallad-fasdfldg',
     username: 'Vitor Santos',

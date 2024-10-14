@@ -99,7 +99,7 @@ export const menuTree = {
       active: 6,
     },
     logout: {
-      label: "Logout",
+      label: "login",
       leftSection: "IconCustomLogout",
       link: "/logout",
       active: 7,
