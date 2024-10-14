@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Avatar, Box, Collapse, Divider, Flex, Group, Stack, Text, Tooltip } from "@mantine/core";
-import { IconChevronLeft, IconChevronRight, IconChevronUp, IconChevronDown } from "@tabler/icons-react";
+import { Avatar, Box, Button, Collapse, Divider, Flex, Group, Stack, Text, Tooltip } from '@mantine/core';
+import { IconChevronLeft, IconChevronRight, IconChevronUp, IconChevronDown, IconDoorEnter } from "@tabler/icons-react";
 import { getMenuTree } from "@/models/models";
 import { userRoutes } from "@/models/models";
 import IconCustomHome from "@/assets/menu/IconCustomHome";
@@ -14,6 +14,10 @@ import IconCustomPlans from "@/assets/menu/IconCustomPlans";
 import IconCustomUpdates from "@/assets/menu/IconCustomUpdates";
 import IconCustomSettings from "@/assets/menu/IconCustomSettings";
 import { useLayoutContext } from "@/components/Layouts/LayoutProvider";
+import IconCustomDoorEnter from '@/assets/menu/IconCustomDoorEnter.jsx';
+import { useDisclosure } from '@mantine/hooks';
+import Login from '@/components/Login/Login.jsx';
+import { closeModal } from '@mantine/modals';
 
 const getMantineIcons = (icon) => {
     switch (icon) {
@@ -33,14 +37,19 @@ const getMantineIcons = (icon) => {
             return <IconCustomUpdates size={{ width: 24, height: 24 }} style={{ strokeWidth: 2.5, fill: "#FFFFFF", cursor: "pointer" }} />;
         case "IconCustomSettings":
             return <IconCustomSettings size={{ width: 24, height: 24 }} style={{ strokeWidth: 2.5, fill: "#FFFFFF", cursor: "pointer" }} />;
+        case "IconCustomDoorEnter":
+            return <IconCustomDoorEnter size={{width: 24, height: 24}} style={{ strokeWidth: 2.5, fill: "#FFFFFF", cursor: "pointer" }}/>;
         default:
             return "";
     }
 };
+
 const renderNavLink = (menuItem, index, navigate) => {
-    const { currentUser, toggleMobile, mobileOpened, desktopOpened, active, setActive, activeChild, setActiveChild } = useLayoutContext();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { currentUser, toggleMobile, mobileOpened, desktopOpened, active, setActive, activeChild, setActiveChild, open } = useLayoutContext();
     const { label, children, leftSection, ...rest } = menuItem;
     const [toggleChildren, setToggleChildren] = useState(false);
+    
     function redirectToUserRoute(userRoute) {
         navigate(userRoute.link);
     }
@@ -52,7 +61,9 @@ const renderNavLink = (menuItem, index, navigate) => {
         if (rest.childrenOffset && !mobileOpened && !desktopOpened) {
             toggleMobile(true);
         }
-
+        if(userRoute.openModal){
+            open();
+        }
         if (userRoute.link) {
             currentUser ? (currentUser?.role?.slug ? redirectToUserRoute(userRoute) : redirectionToInitialPage()) : navigate(userRoutes.HOMEPAGE);
         }
@@ -100,9 +111,12 @@ const renderMenu = (menuObject, navigate) => {
 };
 
 function MenuLayout() {
-    const { currentUser, mobileOpened, desktopOpened, toggleMobile} = useLayoutContext();
+    const { currentUser, mobileOpened, desktopOpened, toggleMobile, openedModal, close} = useLayoutContext();
+    console.log('openedModal: ', openedModal);
+    console.log('closeModal: ', closeModal);
     const modifiedMenuTree = getMenuTree(currentUser?.role?.permissions);
     const navigate = useNavigate();
+    
     return (
         <Flex style={{ position: "relative"}} w={"100%"} h={"100svh"} pt={"1rem"} pb={"1rem"} pl={"1rem"} pr={"1.1rem"} justify={"space-between"} direction={"column"} bg={"#161A23"}>
             <Stack h={"100%"}>
@@ -162,10 +176,13 @@ function MenuLayout() {
                     </Flex>
                     <Flex direction={"column"} style={{ position: "absolute", top: "90%" }} gap={"1rem"}>
                         {/*Footer data - logout and help*/}
-                        {renderMenu(modifiedMenuTree.footer, navigate)}
+                        {
+                            renderMenu(modifiedMenuTree.footer, navigate)
+                        }
                     </Flex>
                 </Stack>
             </Stack>
+            <Login opened={openedModal} closed={close}/>
         </Flex>
     );
 }

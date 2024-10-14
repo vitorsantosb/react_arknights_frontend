@@ -25,6 +25,7 @@ export const LayoutProvider = ({ children }) => {
   const { pathname } = useLocation();
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+  const [openedModal, { open, close }] = useDisclosure(false);
   const [active, setActive] = useState(-1);
   const [activeChild, setActiveChild] = useState(findActive(activeMenu, pathname));
   
@@ -62,6 +63,9 @@ export const LayoutProvider = ({ children }) => {
     activeChild,
     setActiveChild,
     currentUser,
+    open,
+    close,
+    openedModal
   }}>
     {children}
   </LayoutContext.Provider>;

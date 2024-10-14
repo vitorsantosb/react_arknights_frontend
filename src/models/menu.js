@@ -101,8 +101,8 @@ export const menuTree = {
     logout: {
       label: "login",
       leftSection: "IconCustomDoorEnter",
-      link: "/logout",
       active: 7,
+      openModal: true
     },
   },
 };
