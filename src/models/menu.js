@@ -100,7 +100,7 @@ export const menuTree = {
     },
     logout: {
       label: "login",
-      leftSection: "IconCustomLogout",
+      leftSection: "IconCustomDoorEnter",
       link: "/logout",
       active: 7,
     },
