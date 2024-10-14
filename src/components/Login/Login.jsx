@@ -1,4 +1,4 @@
-import {PasswordInput, TextInput, Text, Button, Group, LoadingOverlay, Modal } from '@mantine/core';
+import { PasswordInput, TextInput, Text, Button, Group, LoadingOverlay, Modal, Flex } from '@mantine/core';
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import loginValidationSchema from '@/components/Login/schemas/login_form.schema.js';
@@ -6,14 +6,16 @@ import { userRoutes } from '@/models/routes.js';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Userlogin } from '@/services/routes/user/user.routes.js';
+import config from '@/config/projectConfig.json';
+
 import PropTypes from 'prop-types';
 
-function Login({opened, closed}) {
+function Login({ opened, closed }) {
   const navigate = useNavigate();
   const [loadingLogin, setLoadingLogin] = useState(false);
   
-  console.log("opened", opened);
-  console.log("closed", closed)
+  console.log('opened', opened);
+  console.log('closed', closed);
   
   const loginForm = useFormik({
     initialValues: {
@@ -76,7 +78,21 @@ function Login({opened, closed}) {
   });
   
   return (
-    <Modal opened={opened} onClose={closed} direction={'column'} gap={'0.5rem'}>
+    <Modal
+      centered
+      styles={{
+        body: {
+          backgroundColor: config.colors.modal.background,
+        },
+        header: {
+          backgroundColor: config.colors.modal.header_background,
+        },
+      }}
+      opened={opened}
+      onClose={closed}
+      direction={'column'}
+      gap={'0.5rem'}
+      transitionProps={{ transition: 'fade', duration: 200 }}>
       <LoadingOverlay
         overlayProps={{ blur: 2 }}
         loaderProps={{ color: 'pink', type: 'bars' }}
@@ -84,7 +100,7 @@ function Login({opened, closed}) {
       </LoadingOverlay>
       <Group align={'center'} p={'1rem'} justify={'center'}>
         <Text
-          c={'white'}
+          c={config.colors.modal.text_color}
           size={'40px'}
           align={'center'}
         >
@@ -95,8 +111,14 @@ function Login({opened, closed}) {
         name="email"
         variant="filled"
         label="Email"
-        c={'white'}
-        styles={{ input: { background: 'transparent', borderColor: 'black', color: 'black' } }}
+        c={config.colors.modal.text_color}
+        styles={{
+          input: {
+            background: config.colors.modal.input.background,
+            borderColor: config.colors.modal.input.borderColor,
+            color: config.colors.modal.input.color,
+          },
+        }}
         placeholder="Email"
         value={loginForm.values.email}
         onChange={(e) => {
@@ -112,10 +134,16 @@ function Login({opened, closed}) {
       <PasswordInput
         name="password"
         variant="filled"
-        label="Password"
-        placeholder="Password"
-        c={'white'}
-        styles={{ input: { background: 'transparent', borderColor: 'black', color: 'black' } }}
+        label="Senha"
+        placeholder="Senha"
+        c={config.colors.modal.text_color}
+        styles={{
+          input: {
+            background: config.colors.modal.input.background,
+            borderColor: config.colors.modal.input.borderColor,
+            color: config.colors.modal.input.color,
+          },
+        }}
         value={loginForm.values.password}
         onChange={(e) => {
           loginForm.handleChange(e);
@@ -128,18 +156,21 @@ function Login({opened, closed}) {
         error={loginForm.touched.password && loginForm.errors.password}
       >
       </PasswordInput>
-      <Button onClick={() => navigate(userRoutes.RESET_PASSWORD)} bg={'transparent'}>
-        Esqueci minha senha
-      </Button>
-      <Button bg={'#0057FF'} onClick={loginForm.handleSubmit}>
-        Entrar
-      </Button>
+      <Flex direction={'column'} justifyContent={'center'}>
+        <Button fw={500} onClick={() => navigate(userRoutes.RESET_PASSWORD)} bg={config.colors.modal.button.background}
+                style={{ color: config.colors.modal.button.text_color }}>
+          Esqueci minha senha
+        </Button>
+        <Button bg={config.colors.modal.button.confirm_button.background} onClick={loginForm.handleSubmit}>
+          Entrar
+        </Button>
+      </Flex>
     </Modal>
   );
 }
 
 Login.propTypes = {
   opened: PropTypes.bool.isRequired,
-  closed: PropTypes.bool
-}
+  closed: PropTypes.bool,
+};
 export default Login;

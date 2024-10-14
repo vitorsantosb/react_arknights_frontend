@@ -16,7 +16,7 @@ function NoPage() {
             </Text>
           </Card.Section>
           <Card.Section align={"center"} >
-            <Button onClick={() => navigate(userRoutes.DASHBOARD)}>
+            <Button onClick={() => navigate(userRoutes.HOMEPAGE)}>
               Voltar para Home
             </Button>
           </Card.Section>

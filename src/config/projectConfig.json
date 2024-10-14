@@ -2,6 +2,26 @@
   "colors": {
     "header": "#161A23",
     "background": "#303644",
-    "text": "#FFFFFF"
+    "text": "#FFFFFF",
+    "modal": {
+      "text_color": "#FFFFFF",
+      "background": "#161A23",
+      "header_background": "#161A23",
+      "input": {
+        "background": "transparent",
+        "borderColor": "white",
+        "color": "black"
+      },
+      "button": {
+        "background": "transparent",
+        "text_color": "#FFFFFF",
+
+        "confirm_button": {
+          "background": "#0057FF"
+        }
+
+      },
+
+    }
   }
 }
