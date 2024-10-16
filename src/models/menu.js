@@ -1,61 +1,63 @@
 const childrenOffset = "2.5rem";
 export const menuTree = {
   main: {
-    dashboard: {
-      label: "Dashboard",
+    homepage: {
+      label: "Inicio",
       leftSection: "IconCustomHome",
-      link: "/dashboard",
+      link: "/",
       active: 0,
     },
     characters: {
-      label: "Characters",
+      label: "Operadores",
       leftSection: "IconRPGSpace",
       childrenOffset: childrenOffset,
       active: 1,
       children: [
         {
-          label: "List",
+          label: "Lista",
           link: "/list-character",
           activeChild: 1.1,
         },
-        {
-          label: "Create",
-          link: "/create-character",
-          activeChild: 1.2,
-        },
       ],
+    },
+    chat: {
+      label: "Chat",
+      link: "/chat",
+      leftSection: "IconMessages",
+      childrenOffset: childrenOffset,
+      active: 2,
     },
     updates: {
       label: "Updates",
       leftSection: "IconCustomUpdates",
       link: "/updates",
-      active: 2,
+      active: 3,
     },
     plans: {
       label: "Plans",
       leftSection: "IconCustomPlans",
       childrenOffset: childrenOffset,
-      active: 3,
+      active: 4,
       children: [
         {
           label: "Subscribe",
           link: "/subscribe",
-          activeChild: 3.1,
+          activeChild: 4.1,
         },
         {
           label: "Plan Configuration",
           link: "/plans",
-          activeChild: 3.2,
+          activeChild: 4.2,
         },
         {
           label: "Change plan",
           link: "/plans",
-          activeChild: 3.2,
+          activeChild: 4.2,
         },
         {
           label: "Cancel plan",
           link: "/plans",
-          activeChild: 3.2,
+          activeChild: 4.2,
         },
       ],
     },
@@ -63,7 +65,7 @@ export const menuTree = {
       label: "Schedule",
       leftSection: "IconCustomSchedule",
       link: "/schedule",
-      active: 4,
+      active: 5,
     },
   },
   options: {
@@ -71,22 +73,22 @@ export const menuTree = {
       label: "Settings",
       leftSection: "IconCustomSettings",
       childrenOffset: childrenOffset,
-      active: 5,
+      active: 6,
       children: [
         {
           label: "Link account",
           link: "/link-account",
-          activeChild: 5.1,
+          activeChild: 6.1,
         },
         {
           label: "Manage accounts",
           link: "/manage-accounts",
-          activeChild: 5.2,
+          activeChild: 6.2,
         },
         {
           label: "General",
           link: "/general-configuration",
-          activeChild: 5.3,
+          activeChild: 6.3,
         },
       ],
     },
@@ -96,12 +98,12 @@ export const menuTree = {
       label: "Help",
       leftSection: "IconCustomHelp",
       link: "/help",
-      active: 6,
+      active: 7,
     },
     logout: {
       label: "login",
       leftSection: "IconCustomDoorEnter",
-      active: 7,
+      active: 8,
       openModal: true
     },
   },

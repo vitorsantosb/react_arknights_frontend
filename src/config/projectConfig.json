@@ -19,9 +19,13 @@
         "confirm_button": {
           "background": "#0057FF"
         }
-
-      },
-
+      }
+    },
+    "chat": {
+      "bubble": {
+        "backgroundColor": "#007BFF",
+        "text_color": "#FFFFFF"
+      }
     }
   }
 }
